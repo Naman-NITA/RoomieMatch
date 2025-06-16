@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/conectionSlice";
 import { Link } from "react-router-dom";
 
-//make ir
+//make it mre
 
 const Connections = () => {
   const connections = useSelector((store) => store.connections);
