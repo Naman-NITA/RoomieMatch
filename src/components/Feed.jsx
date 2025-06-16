@@ -25,7 +25,7 @@ const Feed = () => {
   }, []);
 
   const handleCardSwipe = () => {
-    setCurrentIndex((prev) => prev + 1); // Automatically move to next card
+    setCurrentIndex((prev) => prev + 1); 
   };
 
   // Check if feed is empty or we reached the end
