@@ -32,6 +32,7 @@ const Premium = () => {
         color: "#F37254",
       },
      
+      
     };
 
     const rzp = new window.Razorpay(options);

@@ -10,6 +10,7 @@ const UserCard = ({ user, onSwipe }) => {
   const controls = useAnimation();
   const dispatch = useDispatch();
   const [swiping, setSwiping] = useState(false);
+  
 
   const handleSendRequest = async (status) => {
     try {

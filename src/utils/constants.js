@@ -1,1 +1,1 @@
-export const  BASE_URL = "https://dev-tinder-qywm.onrender.com"
+export const  BASE_URL = "http://localhost:3001"

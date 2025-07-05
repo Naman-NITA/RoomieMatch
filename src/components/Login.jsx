@@ -10,6 +10,11 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [photoUrl, setPhotoUrl] = useState("");
+  const [about, setAbout] = useState("");
+  const [skills, setSkills] = useState("");
   const [isLoginForm, setIsLoginForm] = useState(true);
   const [error, setError] = useState("");
   const dispatch = useDispatch();
@@ -19,10 +24,7 @@ const Login = () => {
     try {
       const res = await axios.post(
         BASE_URL + "/login",
-        {
-          emailId,
-          password,
-        },
+        { emailId, password },
         { withCredentials: true }
       );
       dispatch(addUser(res.data));
@@ -36,7 +38,17 @@ const Login = () => {
     try {
       const res = await axios.post(
         BASE_URL + "/signup",
-        { firstName, lastName, emailId, password },
+        {
+          firstName,
+          lastName,
+          emailId,
+          password,
+          age,
+          gender,
+          photoUrl,
+          about,
+          skills: skills.split(",").map((s) => s.trim()),
+        },
         { withCredentials: true }
       );
       dispatch(addUser(res.data.data));
@@ -56,55 +68,109 @@ const Login = () => {
           <div>
             {!isLoginForm && (
               <>
-                <label className="form-control w-full max-w-xs my-2">
+                <label className="form-control my-2">
                   <div className="label">
                     <span className="label-text">First Name</span>
                   </div>
                   <input
                     type="text"
                     value={firstName}
-                    className="input input-bordered w-full max-w-xs"
+                    className="input input-bordered"
                     onChange={(e) => setFirstName(e.target.value)}
                   />
                 </label>
-                <label className="form-control w-full max-w-xs my-2">
+                <label className="form-control my-2">
                   <div className="label">
                     <span className="label-text">Last Name</span>
                   </div>
                   <input
                     type="text"
                     value={lastName}
-                    className="input input-bordered w-full max-w-xs"
+                    className="input input-bordered"
                     onChange={(e) => setLastName(e.target.value)}
+                  />
+                </label>
+                <label className="form-control my-2">
+                  <div className="label">
+                    <span className="label-text">Age</span>
+                  </div>
+                  <input
+                    type="number"
+                    value={age}
+                    className="input input-bordered"
+                    onChange={(e) => setAge(e.target.value)}
+                  />
+                </label>
+                <label className="form-control my-2">
+                  <div className="label">
+                    <span className="label-text">Gender</span>
+                  </div>
+                  <input
+                    type="text"
+                    value={gender}
+                    className="input input-bordered"
+                    onChange={(e) => setGender(e.target.value)}
+                  />
+                </label>
+                <label className="form-control my-2">
+                  <div className="label">
+                    <span className="label-text">Photo URL</span>
+                  </div>
+                  <input
+                    type="text"
+                    value={photoUrl}
+                    className="input input-bordered"
+                    onChange={(e) => setPhotoUrl(e.target.value)}
+                  />
+                </label>
+                <label className="form-control my-2">
+                  <div className="label">
+                    <span className="label-text">About</span>
+                  </div>
+                  <textarea
+                    value={about}
+                    className="textarea textarea-bordered"
+                    onChange={(e) => setAbout(e.target.value)}
+                  />
+                </label>
+                <label className="form-control my-2">
+                  <div className="label">
+                    <span className="label-text">Skills (comma separated)</span>
+                  </div>
+                  <input
+                    type="text"
+                    value={skills}
+                    className="input input-bordered"
+                    onChange={(e) => setSkills(e.target.value)}
                   />
                 </label>
               </>
             )}
-            <label className="form-control w-full max-w-xs my-2">
+            <label className="form-control my-2">
               <div className="label">
-                <span className="label-text">Email ID:</span>
+                <span className="label-text">Email ID</span>
               </div>
               <input
-                type="text"
+                type="email"
                 value={emailId}
-                className="input input-bordered w-full max-w-xs"
+                className="input input-bordered"
                 onChange={(e) => setEmailId(e.target.value)}
               />
             </label>
-            <label className="form-control w-full max-w-xs my-2">
+            <label className="form-control my-2">
               <div className="label">
                 <span className="label-text">Password</span>
               </div>
               <input
                 type="password"
                 value={password}
-                className="input input-bordered w-full max-w-xs"
+                className="input input-bordered"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </label>
           </div>
-          <p className="text-red-500">{error}</p>
-          <div className="card-actions justify-center m-2">
+          <p className="text-red-500 text-sm">{error}</p>
+          <div className="card-actions justify-center mt-4">
             <button
               className="btn btn-primary"
               onClick={isLoginForm ? handleLogin : handleSignUp}
@@ -112,10 +178,9 @@ const Login = () => {
               {isLoginForm ? "Login" : "Sign Up"}
             </button>
           </div>
-
           <p
-            className="m-auto cursor-pointer py-2"
-            onClick={() => setIsLoginForm((value) => !value)}
+            className="mt-4 text-center cursor-pointer text-blue-600 underline"
+            onClick={() => setIsLoginForm((prev) => !prev)}
           >
             {isLoginForm
               ? "New User? Signup Here"
@@ -126,4 +191,5 @@ const Login = () => {
     </div>
   );
 };
+
 export default Login;
